@@ -1,109 +1,195 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import jetLight from "@/assets/jet-light.jpg";
 import jetMid from "@/assets/jet-mid.jpg";
 import jetHeavy from "@/assets/jet-heavy.jpg";
+import TextReveal from "@/components/TextReveal";
 
 const jets = [
   {
     name: "Citation CJ4",
-    category: "Light Jet",
+    category: "LIGHT JET",
     image: jetLight,
     speed: "480 kts",
     range: "2,165 nm",
-    passengers: "7",
+    passengers: "7-9",
+    luggage: "77 cu ft",
+    description:
+      "The agile workhorse of our fleet. Perfect for shorter continental hops, the CJ4 delivers remarkable speed and efficiency. Its stand-up cabin and flat-floor design belie its light-jet classification, offering a level of comfort that surprises even the most seasoned travelers.",
   },
   {
     name: "Challenger 350",
-    category: "Mid-Size",
+    category: "SUPER MID-SIZE",
     image: jetMid,
     speed: "528 kts",
     range: "3,200 nm",
-    passengers: "10",
+    passengers: "8-10",
+    luggage: "106 cu ft",
+    description:
+      "The gold standard of midsize aviation. The Challenger 350 bridges the gap between range and luxury with its wide-body cabin, offering coast-to-coast US travel with ease. The flat floor and 6-foot headroom make it a true office — or bedroom — in the sky.",
   },
   {
     name: "Global 7500",
-    category: "Heavy Jet",
+    category: "ULTRA LONG RANGE",
     image: jetHeavy,
     speed: "590 kts",
     range: "7,700 nm",
-    passengers: "19",
+    passengers: "14-19",
+    luggage: "195 cu ft",
+    description:
+      "The flagship. The Global 7500 is not merely an aircraft — it is a statement of intent. With four distinct living spaces, a full-size kitchen, and the smoothest ride in aviation courtesy of its wing design, this is where boardrooms meet bedrooms at Mach 0.925.",
   },
 ];
 
 const FleetSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const jet = jets[activeIndex];
+
+  const next = () => setActiveIndex((p) => (p + 1) % jets.length);
+  const prev = () => setActiveIndex((p) => (p - 1 + jets.length) % jets.length);
 
   return (
-    <section id="fleet" ref={ref} className="bg-charcoal px-6 py-24 md:px-16 lg:py-32">
-      <div className="mx-auto max-w-7xl">
+    <section id="fleet" ref={ref} className="bg-charcoal py-32 md:py-40">
+      <div className="mx-auto max-w-7xl px-6 md:px-16">
+        <div className="mb-4 flex items-end justify-between">
+          <div>
+            <motion.p
+              className="mb-3 font-sans text-xs tracking-luxury text-gold"
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6 }}
+            >
+              THE FLEET
+            </motion.p>
+            <TextReveal className="font-display text-4xl font-light text-cream md:text-6xl lg:text-7xl">
+              Select Your Aircraft
+            </TextReveal>
+          </div>
+          <div className="hidden gap-3 md:flex">
+            <button
+              onClick={prev}
+              className="flex h-12 w-12 items-center justify-center border border-cream/20 text-cream/60 transition-all duration-300 hover:border-gold hover:text-gold"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={next}
+              className="flex h-12 w-12 items-center justify-center border border-cream/20 text-cream/60 transition-all duration-300 hover:border-gold hover:text-gold"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Counter */}
         <motion.p
-          className="mb-3 font-sans text-xs tracking-luxury text-gold"
+          className="mb-12 font-sans text-sm text-cream/30"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ delay: 0.5 }}
         >
-          THE FLEET
+          <span className="text-gold">{String(activeIndex + 1).padStart(2, "0")}</span>
+          {" / "}
+          {String(jets.length).padStart(2, "0")}
         </motion.p>
-        <motion.h2
-          className="mb-16 font-display text-3xl font-light text-cream md:text-5xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Select Your Aircraft
-        </motion.h2>
 
-        {/* Horizontal scroll on mobile, grid on desktop */}
-        <div className="flex gap-6 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible">
-          {jets.map((jet, i) => (
-            <motion.div
-              key={jet.name}
-              className="min-w-[280px] flex-shrink-0 border border-cream/10 md:min-w-0"
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 + i * 0.15 }}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div className="overflow-hidden">
-                <motion.img
-                  src={jet.image}
-                  alt={jet.name}
-                  className="aspect-[4/5] w-full object-cover"
-                  animate={{ scale: hoveredIndex === i ? 1.05 : 1 }}
-                  transition={{ duration: 0.6 }}
-                />
-              </div>
-              <div className="p-6">
-                <p className="font-sans text-[10px] tracking-luxury text-gold">
-                  {jet.category.toUpperCase()}
-                </p>
-                <h3 className="mt-2 font-display text-xl font-light text-cream">
+        {/* Full-width immersive slider */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIndex}
+            className="flex flex-col gap-0 md:flex-row"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {/* Image */}
+            <div className="w-full overflow-hidden md:w-3/5">
+              <motion.img
+                src={jet.image}
+                alt={jet.name}
+                className="aspect-[16/10] w-full object-cover"
+                initial={{ scale: 1.15 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+              />
+            </div>
+
+            {/* Info */}
+            <div className="flex w-full flex-col justify-between border border-cream/10 border-l-0 p-8 md:w-2/5 md:p-12">
+              <div>
+                <motion.p
+                  className="font-sans text-[10px] tracking-luxury text-gold"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {jet.category}
+                </motion.p>
+                <motion.h3
+                  className="mt-3 font-display text-3xl font-light text-cream md:text-4xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
                   {jet.name}
-                </h3>
-                <div className="mt-4 h-px w-full bg-cream/10" />
-                <div className="mt-4 grid grid-cols-3 gap-4">
+                </motion.h3>
+                <motion.p
+                  className="mt-6 font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/50"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  {jet.description}
+                </motion.p>
+              </div>
+
+              <div>
+                <div className="my-6 h-px w-full bg-cream/10" />
+                <motion.div
+                  className="grid grid-cols-2 gap-6 md:grid-cols-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
                   {[
                     { label: "SPEED", value: jet.speed },
                     { label: "RANGE", value: jet.range },
-                    { label: "PAX", value: jet.passengers },
+                    { label: "PASSENGERS", value: jet.passengers },
+                    { label: "LUGGAGE", value: jet.luggage },
                   ].map((stat) => (
                     <div key={stat.label}>
-                      <p className="font-sans text-[9px] tracking-luxury text-cream/40">
+                      <p className="font-sans text-[9px] tracking-luxury text-cream/30">
                         {stat.label}
                       </p>
-                      <p className="mt-1 font-sans text-xs font-light text-cream/80">
+                      <p className="mt-1 font-sans text-sm font-light text-cream/80">
                         {stat.value}
                       </p>
                     </div>
                   ))}
-                </div>
+                </motion.div>
               </div>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Mobile nav */}
+        <div className="mt-6 flex justify-center gap-3 md:hidden">
+          <button
+            onClick={prev}
+            className="flex h-10 w-10 items-center justify-center border border-cream/20 text-cream/60"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            onClick={next}
+            className="flex h-10 w-10 items-center justify-center border border-cream/20 text-cream/60"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </section>
