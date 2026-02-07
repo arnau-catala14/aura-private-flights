@@ -1,9 +1,9 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import comfortImage from "@/assets/comfort.jpg";
-import heroImage from "@/assets/hero-jet.jpg";
-import jetMid from "@/assets/jet-mid.jpg";
-import destinationsBg from "@/assets/destinations-bg.jpg";
+import chauffeurImage from "@/assets/chauffeur.jpg";
+import yachtImage from "@/assets/yacht.jpg";
+import securityImage from "@/assets/security.jpg";
+import artTransportImage from "@/assets/art-transport.jpg";
 import TextReveal from "@/components/TextReveal";
 
 const services = [
@@ -12,28 +12,28 @@ const services = [
     subtitle: "GROUND TRANSFER",
     description:
       "A Rolls-Royce Phantom awaits you on the tarmac — no terminals, no waiting. Our chauffeurs are trained in executive protection and discretion, ensuring your transition from sky to ground is seamless, secure, and silent.",
-    image: comfortImage,
+    image: chauffeurImage,
   },
   {
     title: "Yacht Connections",
     subtitle: "SEA & SKY",
     description:
       "Step off the jet and onto the deck. Our direct-to-dock service coordinates your landing with your vessel's berth, whether it's a 40-meter Benetti in Antibes or a classic sailing yacht in the Aegean. No roads, no traffic, no delays.",
-    image: heroImage,
+    image: yachtImage,
   },
   {
     title: "Secure Logistics",
     subtitle: "PROTECTION",
     description:
       "When discretion is paramount. Armed close-protection officers, counter-surveillance, secure vehicle convoys, and advance teams. Our security division operates to diplomatic standards for clients who require — or simply prefer — absolute operational security.",
-    image: jetMid,
+    image: securityImage,
   },
   {
     title: "Pet & Art Transport",
     subtitle: "SPECIALIST CARGO",
     description:
       "Whether it's a Basquiat or a Bernese Mountain Dog, we transport what matters most. Climate-controlled cargo holds, custom crating, veterinary standby, and insurance-backed art handling ensure your precious cargo arrives in perfect condition.",
-    image: destinationsBg,
+    image: artTransportImage,
   },
 ];
 
