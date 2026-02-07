@@ -20,7 +20,7 @@ const ExperienceSection = () => {
 
   return (
     <section id="experience">
-      <div ref={stickyRef} className="relative h-[300vh]">
+      <div ref={stickyRef} className="relative h-[200vh]">
         <div className="sticky top-0 h-screen overflow-hidden">
           <div className="flex h-full flex-col md:flex-row">
             {/* Text side */}
