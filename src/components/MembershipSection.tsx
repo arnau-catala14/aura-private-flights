@@ -1,6 +1,6 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import TextReveal from "@/components/TextReveal";
+import { luxuryEase } from "@/lib/animations";
 
 const tiers = [
   {
@@ -72,41 +72,87 @@ const MembershipCard = ({
           ? "border-gold/40 bg-cream/[0.03]"
           : "border-cream/10 bg-cream/[0.02]"
       } backdrop-blur-sm hover:border-gold/60 hover:shadow-[0_0_60px_-20px_hsl(var(--gold)/0.15)]`}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.15 }}
+      initial={{ opacity: 0, y: 80, rotateY: index === 0 ? 8 : index === 2 ? -8 : 0, scale: 0.9 }}
+      animate={isInView ? { opacity: 1, y: 0, rotateY: 0, scale: 1 } : {}}
+      transition={{ duration: 1, delay: index * 0.15, ease: luxuryEase }}
+      whileHover={{ y: -10, transition: { duration: 0.4 } }}
+      style={{ perspective: 1000 }}
     >
       {tier.featured && (
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
+        <motion.div
+          className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1.5, delay: 0.5, ease: luxuryEase }}
+        />
       )}
       <div className="p-8 md:p-10">
-        <p className="font-sans text-[10px] tracking-luxury text-gold">
+        <motion.p
+          className="font-sans text-[10px] tracking-luxury text-gold"
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 + index * 0.15, ease: luxuryEase }}
+        >
           {tier.tagline}
-        </p>
-        <h3 className="mt-3 font-display text-2xl font-light text-cream md:text-3xl">
+        </motion.p>
+        <motion.h3
+          className="mt-3 font-display text-2xl font-light text-cream md:text-3xl"
+          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+          animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.8, delay: 0.4 + index * 0.15, ease: luxuryEase }}
+        >
           {tier.name}
-        </h3>
-        <p className="mt-2 font-sans text-lg font-light text-cream/80">
+        </motion.h3>
+        <motion.p
+          className="mt-2 font-sans text-lg font-light text-cream/80"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 + index * 0.15 }}
+        >
           {tier.price}
-        </p>
+        </motion.p>
 
-        <div className="my-6 h-px w-full bg-cream/10" />
+        <motion.div
+          className="my-6 h-px w-full bg-cream/10"
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1, delay: 0.5 + index * 0.15, ease: luxuryEase }}
+          style={{ originX: 0 }}
+        />
 
         <p className="mb-6 font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/40">
           {tier.description}
         </p>
 
-        <ul className="space-y-3">
+        <motion.ul
+          className="space-y-3"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.05, delayChildren: 0.6 + index * 0.15 } },
+          }}
+        >
           {tier.features.map((feature) => (
-            <li
+            <motion.li
               key={feature}
               className="flex items-start gap-3 font-sans text-xs font-light tracking-wider text-cream/60"
+              variants={{
+                hidden: { opacity: 0, x: -15 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: luxuryEase } },
+              }}
             >
-              <span className="mt-1 h-1 w-1 flex-shrink-0 bg-gold" />
+              <motion.span
+                className="mt-1 h-1 w-1 flex-shrink-0 bg-gold"
+                variants={{
+                  hidden: { scale: 0 },
+                  visible: { scale: 1, transition: { duration: 0.3 } },
+                }}
+              />
               {feature}
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
 
         <motion.a
           href="#contact"
@@ -115,8 +161,8 @@ const MembershipCard = ({
               ? "border-gold bg-gold/10 text-cream hover:bg-gold/20"
               : "border-cream/20 text-cream/60 hover:border-gold/40 hover:text-cream"
           }`}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
         >
           {tier.featured ? "APPLY NOW" : "LEARN MORE"}
         </motion.a>
@@ -145,9 +191,9 @@ const MembershipSection = () => {
         <div className="mb-20 text-center">
           <motion.p
             className="mb-3 font-sans text-xs tracking-luxury text-gold"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.8, ease: luxuryEase }}
           >
             MEMBERSHIP
           </motion.p>
@@ -157,16 +203,22 @@ const MembershipSection = () => {
               style={{ x: headlineX }}
               initial={{ y: "110%" }}
               animate={isInView ? { y: "0%" } : {}}
-              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 0.9, ease: luxuryEase }}
             >
               Aura Membership
             </motion.h2>
           </div>
+          <motion.div
+            className="mx-auto mt-4 h-px w-24 bg-gold/30"
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.4, ease: luxuryEase }}
+          />
           <motion.p
             className="mx-auto mt-6 max-w-xl font-sans text-sm font-light leading-[1.8] tracking-wider text-cream/40"
-            initial={{ opacity: 0, y: 15 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.4 }}
+            initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
+            animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            transition={{ delay: 0.5, ease: luxuryEase }}
           >
             Three tiers of access, each designed for a different relationship with the sky. 
             Every membership includes our white-glove onboarding, personal fleet briefing, 
