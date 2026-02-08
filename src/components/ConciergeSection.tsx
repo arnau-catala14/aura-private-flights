@@ -5,6 +5,7 @@ import yachtImage from "@/assets/yacht.jpg";
 import securityImage from "@/assets/security.jpg";
 import artTransportImage from "@/assets/art-transport.jpg";
 import TextReveal from "@/components/TextReveal";
+import { luxuryEase } from "@/lib/animations";
 
 const services = [
   {
@@ -39,31 +40,51 @@ const services = [
 
 const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+
+  // Each card gets a unique entrance direction
+  const directions = [
+    { x: -60, y: 40, rotate: -3 },
+    { x: 60, y: 40, rotate: 3 },
+    { x: -60, y: 40, rotate: 2 },
+    { x: 60, y: 40, rotate: -2 },
+  ];
+  const dir = directions[index];
 
   return (
     <motion.div
       ref={ref}
       className="group relative overflow-hidden"
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.1 }}
+      initial={{ opacity: 0, x: dir.x, y: dir.y, rotate: dir.rotate, filter: "blur(8px)" }}
+      animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, filter: "blur(0px)" } : {}}
+      transition={{ duration: 0.9, delay: index * 0.12, ease: luxuryEase }}
+      whileHover={{ y: -8, transition: { duration: 0.4 } }}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
         <motion.img
           src={service.image}
           alt={service.title}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="h-full w-full object-cover"
+          whileHover={{ scale: 1.12 }}
+          transition={{ duration: 0.8, ease: luxuryEase }}
         />
         <div className="absolute inset-0 bg-charcoal/50 transition-colors duration-500 group-hover:bg-charcoal/70" />
         <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-          <p className="mb-2 font-sans text-[10px] tracking-luxury text-gold">
+          <motion.p
+            className="mb-2 font-sans text-[10px] tracking-luxury text-gold"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 + index * 0.12, ease: luxuryEase }}
+          >
             {service.subtitle}
-          </p>
+          </motion.p>
           <h3 className="font-display text-2xl font-light text-cream md:text-3xl">
             {service.title}
           </h3>
-          <p className="mt-3 max-w-sm font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/60 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+          <motion.div
+            className="mt-2 h-px w-0 bg-gold/40 transition-all duration-700 group-hover:w-16"
+          />
+          <p className="mt-3 max-w-sm font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/60 opacity-0 translate-y-3 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
             {service.description}
           </p>
         </div>
@@ -86,23 +107,30 @@ const ConciergeSection = () => {
       <div className="mx-auto max-w-7xl">
         <motion.p
           className="mb-3 font-sans text-xs tracking-luxury text-gold"
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, filter: "blur(10px)" }}
+          animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.8, ease: luxuryEase }}
         >
           CONCIERGE
         </motion.p>
         <div className="overflow-hidden">
           <motion.h2
-            className="mb-20 font-display text-4xl font-light text-cream md:text-6xl lg:text-7xl"
+            className="mb-6 font-display text-4xl font-light text-cream md:text-6xl lg:text-7xl"
             style={{ x: headlineX }}
             initial={{ y: "110%" }}
             animate={isInView ? { y: "0%" } : {}}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.9, ease: luxuryEase }}
           >
             Beyond the Flight
           </motion.h2>
         </div>
+        <motion.div
+          className="mb-20 h-px w-32 bg-gold/30"
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1.2, delay: 0.4, ease: luxuryEase }}
+          style={{ originX: 0 }}
+        />
 
         <div className="grid gap-4 md:grid-cols-2">
           {services.map((service, i) => (

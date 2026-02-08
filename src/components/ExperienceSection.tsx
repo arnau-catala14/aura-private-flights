@@ -3,6 +3,7 @@ import { useRef } from "react";
 import comfortImage from "@/assets/comfort.jpg";
 import diningImage from "@/assets/dining.jpg";
 import TextReveal from "@/components/TextReveal";
+import { clipRevealLeft, clipRevealRight, luxuryEase } from "@/lib/animations";
 
 const ExperiencePanel = ({
   label,
@@ -29,6 +30,7 @@ const ExperiencePanel = ({
     offset: ["start end", "end start"],
   });
   const imgScale = useTransform(scrollYProgress, [0, 1], [1.15, 1]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
 
   return (
     <div
@@ -37,36 +39,54 @@ const ExperiencePanel = ({
     >
       {/* Text */}
       <div className="flex w-full items-center px-8 py-20 md:w-1/2 md:px-16 lg:px-24">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay }}
-        >
-          <p className="mb-4 font-sans text-xs tracking-luxury text-gold">{label}</p>
+        <div>
+          <motion.p
+            className="mb-4 font-sans text-xs tracking-luxury text-gold"
+            initial={{ opacity: 0, x: reverse ? 30 : -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay, ease: luxuryEase }}
+          >
+            {label}
+          </motion.p>
           <TextReveal className="font-display text-4xl font-light leading-tight text-foreground md:text-5xl lg:text-6xl" delay={delay}>
             {title}
           </TextReveal>
-          <motion.div className="my-6 h-px w-20 bg-gold/40" />
+          <motion.div
+            className="my-6 h-px w-20 bg-gold/40"
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1, delay: delay + 0.3, ease: luxuryEase }}
+            style={{ originX: 0 }}
+          />
           {paragraphs.map((p, i) => (
-            <p
+            <motion.p
               key={i}
               className={`${i > 0 ? "mt-4" : ""} max-w-md font-sans text-sm font-light leading-[1.8] tracking-wider text-muted-foreground md:text-base`}
+              initial={{ opacity: 0, y: 25, filter: "blur(5px)" }}
+              animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              transition={{ duration: 0.8, delay: delay + 0.4 + i * 0.15, ease: luxuryEase }}
             >
               {p}
-            </p>
+            </motion.p>
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      {/* Image */}
-      <div ref={imgRef} className="relative min-h-[50vh] w-full overflow-hidden md:min-h-0 md:w-1/2">
+      {/* Image with clip-path reveal */}
+      <motion.div
+        ref={imgRef}
+        className="relative min-h-[50vh] w-full overflow-hidden md:min-h-0 md:w-1/2"
+        variants={reverse ? clipRevealRight : clipRevealLeft}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
         <motion.img
           src={image}
           alt={imageAlt}
           className="absolute inset-0 h-full w-full object-cover"
-          style={{ scale: imgScale }}
+          style={{ scale: imgScale, y: imgY }}
         />
-      </div>
+      </motion.div>
     </div>
   );
 };

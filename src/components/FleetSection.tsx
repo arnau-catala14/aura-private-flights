@@ -5,6 +5,7 @@ import jetLight from "@/assets/jet-light.jpg";
 import jetMid from "@/assets/jet-mid.jpg";
 import jetHeavy from "@/assets/jet-heavy.jpg";
 import TextReveal from "@/components/TextReveal";
+import { luxuryEase } from "@/lib/animations";
 
 const jets = [
   {
@@ -42,14 +43,37 @@ const jets = [
   },
 ];
 
+const slideVariants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? 300 : -300,
+    opacity: 0,
+    scale: 0.95,
+    filter: "blur(10px)",
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.7, ease: luxuryEase },
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? -300 : 300,
+    opacity: 0,
+    scale: 0.95,
+    filter: "blur(10px)",
+    transition: { duration: 0.5, ease: luxuryEase },
+  }),
+};
+
 const FleetSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [[activeIndex, direction], setActive] = useState([0, 0]);
   const jet = jets[activeIndex];
 
-  const next = () => setActiveIndex((p) => (p + 1) % jets.length);
-  const prev = () => setActiveIndex((p) => (p - 1 + jets.length) % jets.length);
+  const next = () => setActive([(activeIndex + 1) % jets.length, 1]);
+  const prev = () => setActive([(activeIndex - 1 + jets.length) % jets.length, -1]);
 
   return (
     <section id="fleet" ref={ref} className="bg-charcoal py-32 md:py-40">
@@ -58,9 +82,9 @@ const FleetSection = () => {
           <div>
             <motion.p
               className="mb-3 font-sans text-xs tracking-luxury text-gold"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, ease: luxuryEase }}
             >
               THE FLEET
             </motion.p>
@@ -69,42 +93,51 @@ const FleetSection = () => {
             </TextReveal>
           </div>
           <div className="hidden gap-3 md:flex">
-            <button
-              onClick={prev}
-              className="flex h-12 w-12 items-center justify-center border border-cream/20 text-cream/60 transition-all duration-300 hover:border-gold hover:text-gold"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={next}
-              className="flex h-12 w-12 items-center justify-center border border-cream/20 text-cream/60 transition-all duration-300 hover:border-gold hover:text-gold"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
+            {[prev, next].map((fn, i) => (
+              <motion.button
+                key={i}
+                onClick={fn}
+                className="flex h-12 w-12 items-center justify-center border border-cream/20 text-cream/60 transition-all duration-300 hover:border-gold hover:text-gold"
+                whileHover={{ scale: 1.1, rotate: i === 0 ? -5 : 5 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {i === 0 ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
+              </motion.button>
+            ))}
           </div>
         </div>
 
-        {/* Counter */}
+        {/* Counter with animated number */}
         <motion.p
           className="mb-12 font-sans text-sm text-cream/30"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.5 }}
         >
-          <span className="text-gold">{String(activeIndex + 1).padStart(2, "0")}</span>
+          <motion.span
+            key={activeIndex}
+            className="inline-block text-gold"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.4, ease: luxuryEase }}
+          >
+            {String(activeIndex + 1).padStart(2, "0")}
+          </motion.span>
           {" / "}
           {String(jets.length).padStart(2, "0")}
         </motion.p>
 
-        {/* Full-width immersive slider */}
-        <AnimatePresence mode="wait">
+        {/* Slider with directional animation */}
+        <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={activeIndex}
             className="flex flex-col gap-0 md:flex-row"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
           >
             {/* Image */}
             <div className="w-full overflow-hidden md:w-3/5">
@@ -112,48 +145,52 @@ const FleetSection = () => {
                 src={jet.image}
                 alt={jet.name}
                 className="aspect-[16/10] w-full object-cover"
-                initial={{ scale: 1.15 }}
+                initial={{ scale: 1.2 }}
                 animate={{ scale: 1 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
+                transition={{ duration: 1.4, ease: luxuryEase }}
               />
             </div>
 
-            {/* Info */}
-            <div className="flex w-full flex-col justify-between border border-cream/10 border-l-0 p-8 md:w-2/5 md:p-12">
+            {/* Info with staggered children */}
+            <motion.div
+              className="flex w-full flex-col justify-between border border-cream/10 border-l-0 p-8 md:w-2/5 md:p-12"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } },
+              }}
+            >
               <div>
                 <motion.p
                   className="font-sans text-[10px] tracking-luxury text-gold"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
+                  variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
                 >
                   {jet.category}
                 </motion.p>
                 <motion.h3
                   className="mt-3 font-display text-3xl font-light text-cream md:text-4xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
+                  variants={{ hidden: { opacity: 0, y: 25, filter: "blur(8px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)" } }}
                 >
                   {jet.name}
                 </motion.h3>
                 <motion.p
                   className="mt-6 font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/50"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
+                  variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
                 >
                   {jet.description}
                 </motion.p>
               </div>
 
               <div>
-                <div className="my-6 h-px w-full bg-cream/10" />
+                <motion.div
+                  className="my-6 h-px w-full bg-cream/10"
+                  variants={{ hidden: { scaleX: 0 }, visible: { scaleX: 1 } }}
+                  style={{ originX: 0 }}
+                />
                 <motion.div
                   className="grid grid-cols-2 gap-6 md:grid-cols-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
+                  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
                 >
                   {[
                     { label: "SPEED", value: jet.speed },
@@ -161,18 +198,24 @@ const FleetSection = () => {
                     { label: "PASSENGERS", value: jet.passengers },
                     { label: "LUGGAGE", value: jet.luggage },
                   ].map((stat) => (
-                    <div key={stat.label}>
+                    <motion.div
+                      key={stat.label}
+                      variants={{
+                        hidden: { opacity: 0, y: 20 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: luxuryEase } },
+                      }}
+                    >
                       <p className="font-sans text-[9px] tracking-luxury text-cream/30">
                         {stat.label}
                       </p>
                       <p className="mt-1 font-sans text-sm font-light text-cream/80">
                         {stat.value}
                       </p>
-                    </div>
+                    </motion.div>
                   ))}
                 </motion.div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
 
