@@ -140,7 +140,7 @@ const MembershipSection = () => {
   const headlineX = useTransform(scrollYProgress, [0, 1], [-40, 40]);
 
   return (
-    <section id="membership" ref={ref} className="bg-charcoal px-6 py-32 md:px-16 md:py-40">
+    <section id="membership" ref={ref} className="bg-charcoal px-6 py-20 md:px-16 md:py-28">
       <div className="mx-auto max-w-7xl">
         <div className="mb-20 text-center">
           <motion.p
