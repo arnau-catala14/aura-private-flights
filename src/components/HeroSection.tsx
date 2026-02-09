@@ -3,7 +3,12 @@ import { useRef } from "react";
 import heroImage from "@/assets/hero-jet.jpg";
 import { luxuryEase } from "@/lib/animations";
 
-const navItems = ["Fleet", "Experience", "Destinations", "Membership"];
+const navItems = [
+  { label: "Experience", href: "#experience" },
+  { label: "Fleet", href: "#fleet" },
+  { label: "Membership", href: "#membership" },
+  { label: "Destinations", href: "#destinations" },
+];
 
 const AnimatedText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
   const chars = text.split("");
@@ -89,14 +94,14 @@ const HeroSection = () => {
         <div className="hidden gap-8 md:flex">
           {navItems.map((item, i) => (
             <motion.a
-              key={item}
-              href={`#${item.toLowerCase()}`}
+              key={item.label}
+              href={item.href}
               className="font-sans text-xs font-light tracking-luxury text-cream/70 transition-colors duration-300 hover:text-cream"
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 + i * 0.1, ease: luxuryEase }}
             >
-              {item.toUpperCase()}
+              {item.label.toUpperCase()}
             </motion.a>
           ))}
         </div>
