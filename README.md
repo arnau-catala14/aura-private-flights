@@ -1,73 +1,58 @@
-# Welcome to your Lovable project
+# ✈️ Aura Private Flights
 
-## Project info
+> **"Redefining the horizon of luxury travel."**
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+![Project Status](https://img.shields.io/badge/status-active-success)
+![Tech Stack](https://img.shields.io/badge/built%20with-React%20%2B%20Tailwind-0f172a)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-## How can I edit this code?
+**Aura Private Flights** is a high-fidelity landing page designed for an exclusive private jet charter service. The project focuses on conveying prestige and comfort through a minimalist aesthetic, immersive scroll-triggered animations, and a seamless user experience tailored for high-net-worth clients.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## ✨ Key Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+- **💎 Premium UI/UX:** A "Quiet Luxury" design philosophy using negative space and elegant typography.
+- **🎥 Immersive Hero Section:** Full-screen visual impact to immediately capture user attention.
+- **✈️ Fleet Showcase:** Interactive slider displaying aircraft details.
+- **💳 Membership Tiers:** Elegantly designed pricing cards for different service levels.
+- **⤵️ Motion Scroll Animations:** Elements fade, slide, and scale smoothly using Framer Motion as the user navigates.
+- **📱 Fully Responsive:** Optimized experience across mobile, tablet, and desktop devices.
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠️ Tech Stack
 
-**Use your preferred IDE**
+Built with a focus on modern web standards and visual performance:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Core:** [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🚀 Getting Started
 
-Follow these steps:
+### Prerequisites
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- Node.js & npm installed.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Installation
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. Clone the repo
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+   ```sh
+   git clone [https://github.com/arnau-catala14/aura-private-flights.git](https://github.com/arnau-catala14/aura-private-flights.git)
+   ```
 
-**Edit a file directly in GitHub**
+2. Install dependencies
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+   ```sh
+   npm install
+   ```
 
-**Use GitHub Codespaces**
+3. Run development server
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+   ```sh
+   npm run dev
+   ```
 
-## What technologies are used for this project?
+---
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+_Developed by [Arnau Català](https://www.linkedin.com/in/arnaucatala14)_
