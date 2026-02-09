@@ -3,7 +3,7 @@
 > **"Redefining the horizon of luxury travel."**
 
 ![Project Status](https://img.shields.io/badge/status-active-success)
-![Tech Stack](https://img.shields.io/badge/built%20with-React%20%2B%20Tailwind-0f172a)
+![Tech Stack](https://img.shields.io/badge/built%20with-Lovable%20%2B%20React%20%2B%20Tailwind-blueviolet)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 **Aura Private Flights** is a high-fidelity landing page designed for an exclusive private jet charter service. The project focuses on conveying prestige and comfort through a minimalist aesthetic, immersive scroll-triggered animations, and a seamless user experience tailored for high-net-worth clients.
@@ -38,7 +38,7 @@ Built with a focus on modern web standards and visual performance:
 1. Clone the repo
 
    ```sh
-   git clone [https://github.com/arnau-catala14/aura-private-flights.git](https://github.com/arnau-catala14/aura-private-flights.git)
+   git clone https://github.com/arnau-catala14/aura-private-flights.git
    ```
 
 2. Install dependencies
