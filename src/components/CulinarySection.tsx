@@ -18,7 +18,8 @@ const CulinarySection = () => {
     <section ref={ref} className="bg-background">
       <div className="flex min-h-screen flex-col md:flex-row">
         {/* Text half */}
-        <div className="flex w-full flex-col justify-center px-8 py-20 md:w-1/2 md:px-16 lg:px-24">
+        <div className="flex w-full items-center px-8 py-20 md:w-1/2 md:px-16 lg:px-24">
+          <div>
           <motion.p
             className="mb-4 font-sans text-xs tracking-luxury text-gold"
             initial={{ opacity: 0, x: 30 }}
@@ -52,6 +53,7 @@ const CulinarySection = () => {
               {text}
             </motion.p>
           ))}
+          </div>
         </div>
 
         {/* Image half with clip-path reveal */}
