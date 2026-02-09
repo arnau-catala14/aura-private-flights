@@ -10,7 +10,7 @@ const AnimatedText = ({ text, delay = 0 }: { text: string; delay?: number }) => 
   return (
     <div className="overflow-hidden">
       <motion.div
-        className="flex"
+        className="flex justify-center"
         initial={{ y: "120%" }}
         animate={{ y: "0%" }}
         transition={{ duration: 1.2, ease: luxuryEase, delay }}
@@ -40,7 +40,6 @@ const HeroSection = () => {
   const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const headlineX = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.6, 0.85]);
 
   return (
@@ -128,10 +127,10 @@ const HeroSection = () => {
           PRIVATE AVIATION
         </motion.p>
 
-        <motion.div style={{ x: headlineX }}>
+        <div>
           <AnimatedText text="BEYOND" delay={0.6} />
           <AnimatedText text="FIRST CLASS" delay={0.85} />
-        </motion.div>
+        </div>
 
         <motion.p
           className="mt-8 max-w-lg font-sans text-sm font-light tracking-wider text-cream/50 md:text-base"
