@@ -14,7 +14,7 @@ const TextReveal = ({ children, className = "", delay = 0, as = "h2" }: TextReve
   const Tag = motion[as];
 
   return (
-    <div ref={ref} className="overflow-hidden">
+    <div ref={ref} className="overflow-hidden pb-1">
       <Tag
         className={className}
         initial={{ y: "110%" }}
