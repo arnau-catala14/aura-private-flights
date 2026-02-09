@@ -68,17 +68,22 @@ const FooterSection = () => {
             AURA
           </motion.span>
           <div className="flex gap-8">
-            {["Fleet", "Membership", "Destinations", "About"].map((link, i) => (
+            {[
+              { label: "Experience", href: "#experience" },
+              { label: "Fleet", href: "#fleet" },
+              { label: "Membership", href: "#membership" },
+              { label: "Destinations", href: "#destinations" },
+            ].map((link, i) => (
               <motion.a
-                key={link}
-                href="#"
+                key={link.label}
+                href={link.href}
                 className="font-sans text-xs tracking-luxury text-cream/40 transition-colors duration-300 hover:text-cream/70"
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.9 + i * 0.08, ease: luxuryEase }}
                 whileHover={{ y: -2 }}
               >
-                {link.toUpperCase()}
+                {link.label.toUpperCase()}
               </motion.a>
             ))}
           </div>
