@@ -17,22 +17,6 @@ const CulinarySection = () => {
   return (
     <section ref={ref} className="bg-background">
       <div className="flex min-h-screen flex-col md:flex-row">
-        {/* Image half with clip-path reveal */}
-        <motion.div
-          className="relative h-[60vh] w-full overflow-hidden md:h-auto md:w-1/2"
-          variants={clipRevealLeft}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          <motion.img
-            src={sanctuaryImage}
-            alt="Luxurious private jet cabin wellness sanctuary"
-            className="absolute inset-0 h-[120%] w-full object-cover"
-            style={{ y: imgY, scale: imgScale }}
-          />
-          <div className="absolute inset-0 bg-charcoal/20" />
-        </motion.div>
-
         {/* Text half */}
         <div className="flex w-full flex-col justify-center px-8 py-20 md:w-1/2 md:px-16 lg:px-24">
           <motion.p
@@ -69,6 +53,22 @@ const CulinarySection = () => {
             </motion.p>
           ))}
         </div>
+
+        {/* Image half with clip-path reveal */}
+        <motion.div
+          className="relative h-[60vh] w-full overflow-hidden md:h-auto md:w-1/2"
+          variants={clipRevealLeft}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          <motion.img
+            src={sanctuaryImage}
+            alt="Luxurious private jet cabin wellness sanctuary"
+            className="absolute inset-0 h-[120%] w-full object-cover"
+            style={{ y: imgY, scale: imgScale }}
+          />
+          <div className="absolute inset-0 bg-charcoal/20" />
+        </motion.div>
       </div>
     </section>
   );
