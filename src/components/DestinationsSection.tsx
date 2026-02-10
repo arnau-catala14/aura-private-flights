@@ -77,7 +77,7 @@ const DestinationsSection = () => {
           style={{ originX: 0 }}
         />
         <motion.p
-          className="mb-16 max-w-lg font-sans text-sm font-light leading-[1.8] tracking-wider text-cream/40"
+          className="mb-16 max-w-lg font-sans text-sm font-light leading-[1.8] tracking-wider text-cream/60"
           initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
           animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
           transition={{ delay: 0.4, ease: luxuryEase }}
@@ -101,7 +101,7 @@ const DestinationsSection = () => {
                   <AnimatedCity city={dest.city} isInView={isInView} delay={0.5 + i * 0.1} />
                 </h3>
                 <motion.span
-                  className="hidden font-sans text-xs tracking-luxury text-cream/20 md:inline"
+                  className="hidden font-sans text-xs tracking-luxury text-cream/40 md:inline"
                   initial={{ opacity: 0, x: -10 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.8 + i * 0.1, ease: luxuryEase }}
@@ -110,7 +110,7 @@ const DestinationsSection = () => {
                 </motion.span>
               </div>
               <motion.span
-                className="font-sans text-xs tracking-luxury text-cream/40"
+                className="font-sans text-xs tracking-luxury text-cream/60"
                 initial={{ opacity: 0, x: 20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.7 + i * 0.1, ease: luxuryEase }}

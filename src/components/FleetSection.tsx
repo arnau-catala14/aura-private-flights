@@ -109,7 +109,7 @@ const FleetSection = () => {
 
         {/* Counter with animated number */}
         <motion.p
-          className="mb-12 font-sans text-sm text-cream/30"
+          className="mb-12 font-sans text-sm text-cream/50"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.5 }}
@@ -175,7 +175,7 @@ const FleetSection = () => {
                   {jet.name}
                 </motion.h3>
                 <motion.p
-                  className="mt-6 font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/50"
+                  className="mt-6 font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/70"
                   variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0 } }}
                 >
                   {jet.description}
@@ -205,7 +205,7 @@ const FleetSection = () => {
                         visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: luxuryEase } },
                       }}
                     >
-                      <p className="font-sans text-[9px] tracking-luxury text-cream/30">
+                      <p className="font-sans text-[9px] tracking-luxury text-cream/50">
                         {stat.label}
                       </p>
                       <p className="mt-1 font-sans text-sm font-light text-cream/80">

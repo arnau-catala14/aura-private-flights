@@ -31,7 +31,7 @@ const FooterSection = () => {
             transition={{ duration: 1.2, delay: 0.5, ease: luxuryEase }}
           />
           <motion.p
-            className="mx-auto mt-6 max-w-md font-sans text-sm font-light leading-[1.8] tracking-wider text-cream/40"
+            className="mx-auto mt-6 max-w-md font-sans text-sm font-light leading-[1.8] tracking-wider text-cream/60"
             initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
             animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
             transition={{ delay: 0.6, ease: luxuryEase }}
@@ -77,7 +77,7 @@ const FooterSection = () => {
               <motion.a
                 key={link.label}
                 href={link.href}
-                className="font-sans text-xs tracking-luxury text-cream/40 transition-colors duration-300 hover:text-cream/70"
+                className="font-sans text-xs tracking-luxury text-cream/60 transition-colors duration-300 hover:text-cream/70"
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.9 + i * 0.08, ease: luxuryEase }}
