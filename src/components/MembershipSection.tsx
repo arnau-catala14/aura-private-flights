@@ -120,7 +120,7 @@ const MembershipCard = ({
           style={{ originX: 0 }}
         />
 
-        <p className="mb-6 font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/40">
+        <p className="mb-6 font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/60">
           {tier.description}
         </p>
 
@@ -136,7 +136,7 @@ const MembershipCard = ({
           {tier.features.map((feature) => (
             <motion.li
               key={feature}
-              className="flex items-start gap-3 font-sans text-xs font-light tracking-wider text-cream/60"
+              className="flex items-start gap-3 font-sans text-xs font-light tracking-wider text-cream/75"
               variants={{
                 hidden: { opacity: 0, x: -15 },
                 visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: luxuryEase } },
@@ -159,7 +159,7 @@ const MembershipCard = ({
           className={`mt-8 block w-full border py-3 text-center font-sans text-xs tracking-luxury transition-all duration-500 ${
             tier.featured
               ? "border-gold bg-gold/10 text-cream hover:bg-gold/20"
-              : "border-cream/20 text-cream/60 hover:border-gold/40 hover:text-cream"
+              : "border-cream/20 text-cream/75 hover:border-gold/40 hover:text-cream"
           }`}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
@@ -215,7 +215,7 @@ const MembershipSection = () => {
             transition={{ duration: 1.2, delay: 0.4, ease: luxuryEase }}
           />
           <motion.p
-            className="mx-auto mt-6 max-w-xl font-sans text-sm font-light leading-[1.8] tracking-wider text-cream/40"
+            className="mx-auto mt-6 max-w-xl font-sans text-sm font-light leading-[1.8] tracking-wider text-cream/60"
             initial={{ opacity: 0, y: 20, filter: "blur(5px)" }}
             animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
             transition={{ delay: 0.5, ease: luxuryEase }}

@@ -138,7 +138,7 @@ const HeroSection = () => {
         </div>
 
         <motion.p
-          className="mt-8 max-w-lg font-sans text-sm font-light tracking-wider text-cream/50 md:text-base"
+          className="mt-8 max-w-lg font-sans text-sm font-light tracking-wider text-cream/70 md:text-base"
           initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 1, delay: 1.6, ease: luxuryEase }}
@@ -155,7 +155,7 @@ const HeroSection = () => {
           transition={{ delay: 2.5 }}
         >
           <motion.span
-            className="font-sans text-[10px] tracking-luxury text-cream/40"
+            className="font-sans text-[10px] tracking-luxury text-cream/60"
             animate={{ opacity: [0.4, 1, 0.4] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >

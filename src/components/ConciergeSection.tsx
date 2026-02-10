@@ -84,7 +84,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
           <motion.div
             className="mt-2 h-px w-0 bg-gold/40 transition-all duration-700 group-hover:w-16"
           />
-          <p className="mt-3 max-w-sm font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/60 opacity-0 translate-y-3 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+          <p className="mt-3 max-w-sm font-sans text-xs font-light leading-[1.8] tracking-wider text-cream/75 opacity-0 translate-y-3 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
             {service.description}
           </p>
         </div>
