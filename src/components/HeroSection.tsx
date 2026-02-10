@@ -96,7 +96,7 @@ const HeroSection = () => {
             <motion.a
               key={item.label}
               href={item.href}
-              className="font-sans text-xs font-light tracking-luxury text-cream/70 transition-colors duration-300 hover:text-cream"
+              className="font-sans text-xs font-light tracking-luxury text-cream/85 transition-colors duration-300 hover:text-cream"
               initial={{ opacity: 0, y: -15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 + i * 0.1, ease: luxuryEase }}
