@@ -153,7 +153,7 @@ const FleetSection = () => {
 
             {/* Info with staggered children */}
             <motion.div
-              className="flex w-full flex-col justify-between border border-cream/10 border-l-0 p-8 md:w-2/5 md:p-12"
+              className="flex w-full flex-col justify-between border border-cream/10 border-t-0 md:border-t md:border-l-0 p-8 md:w-2/5 md:p-12"
               initial="hidden"
               animate="visible"
               variants={{

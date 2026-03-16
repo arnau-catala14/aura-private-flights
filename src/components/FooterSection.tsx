@@ -67,7 +67,7 @@ const FooterSection = () => {
           >
             AURA
           </motion.span>
-          <div className="flex gap-8">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             {[
               { label: "Experience", href: "#experience" },
               { label: "Fleet", href: "#fleet" },
